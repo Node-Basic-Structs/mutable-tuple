@@ -1,9 +1,11 @@
 {
   "name": "@basic-structs/mutable-tuple",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A mutable tuple to Javascript and Typescript",
-  "main": "src/MutableTuple.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
+    "build": "rm -rf ./dist && tsc",
     "test": "test"
   },
   "repository": {
@@ -23,5 +25,10 @@
   "bugs": {
     "url": "https://github.com/Node-Basic-Structs/mutable-tuple/issues"
   },
-  "homepage": "https://github.com/Node-Basic-Structs/mutable-tuple#readme"
+  "homepage": "https://github.com/Node-Basic-Structs/mutable-tuple#readme",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ]
 }

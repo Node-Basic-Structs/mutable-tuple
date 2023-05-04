@@ -1,0 +1,27 @@
+{
+  "name": "@basic-structs/mutable-tuple",
+  "version": "1.0.0",
+  "description": "A mutable tuple to Javascript and Typescript",
+  "main": "src/MutableTuple.ts",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Node-Basic-Structs/mutable-tuple.git"
+  },
+  "keywords": [
+    "Basic",
+    "Mutable",
+    "Tuple",
+    "Data",
+    "Struct",
+    "Structs"
+  ],
+  "author": "Brennon Gabriel de Oliveira",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Node-Basic-Structs/mutable-tuple/issues"
+  },
+  "homepage": "https://github.com/Node-Basic-Structs/mutable-tuple#readme"
+}

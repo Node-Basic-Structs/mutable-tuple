@@ -1,6 +1,6 @@
 import { Range } from './types/Range';
 
-type TupleLength<T extends any[]> = Range<0, T['length']> & number;
+export type TupleLength<T extends any[]> = Range<0, T['length']> & number;
 
 export class MutableTuple<T extends any[]> {
 	private _values: T;
@@ -95,10 +95,12 @@ export class MutableTuple<T extends any[]> {
 	 * @param value - The value to search for.
 	 * @returns The found value or NotFound if not found.
 	 */
-	public find(value: T[number]): T[number] | symbol {
-		for (let item of this._values) {
-			if (item === value) {
-				return item;
+	public find(
+		callbackfn: (value: T[number], index: number) => boolean
+	): T[number] | symbol {
+		for (let index in this._values) {
+			if (callbackfn(this._values[index], parseInt(index))) {
+				return this._values[index];
 			}
 		}
 		return this.NotFound;
@@ -110,12 +112,26 @@ export class MutableTuple<T extends any[]> {
 	 * @param value - The value to search for.
 	 * @returns The index of the found value or -1 if not found.
 	 */
-	public findIndex(value: T[number]): TupleLength<T> | -1 {
+	public findIndex(
+		callbackfn: (value: T[number], index: number) => boolean
+	): TupleLength<T> | -1 {
 		for (let index in this._values) {
-			if (this._values[index] === value) {
+			if (callbackfn(this._values[index], parseInt(index))) {
 				return parseInt(index) as TupleLength<T>;
 			}
 		}
 		return -1;
+	}
+
+	public filter(
+		callbackfn: (value: T[number], index: number) => boolean
+	): Array<T[number]> {
+		const values: Array<T[number]> = [];
+		for (let index in this._values) {
+			if (callbackfn(this._values[index], parseInt(index))) {
+				values.push(this._values[index]);
+			}
+		}
+		return values;
 	}
 }

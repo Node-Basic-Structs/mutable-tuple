@@ -9,7 +9,8 @@
     "run": "tsc && node dist/index.js",
     "prebuild": "rm -rf ./dist",
     "build": "rm -rf ./dist && tsc",
-    "test": "test"
+    "test": "jest",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\" \"*.json\""
   },
   "repository": {
     "type": "git",

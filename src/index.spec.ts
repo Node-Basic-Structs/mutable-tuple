@@ -82,35 +82,45 @@ describe('MutableTuple', () => {
 		});
 	});
 
-	describe('find', () => {
-		it('should return the found value', () => {
-			const tuple = new MutableTuple(1, 2, 3);
-			const value = tuple.find(2);
-
-			expect(value).toBe(2);
+	describe('find()', () => {
+		it('should find the first element that satisfies a function', () => {
+			const tuple = new MutableTuple(1, 2, 3, 4, 5);
+			const found = tuple.find((value) => value > 3);
+			expect(found).toBe(4);
 		});
 
-		it('should return NotFound if the value is not found', () => {
-			const tuple = new MutableTuple(1, 2, 3);
-			const value = tuple.find(4);
-
-			expect(value).toBe(tuple.NotFound);
+		it('should return NotFound if no element satisfies the function', () => {
+			const tuple = new MutableTuple(1, 2, 3, 4, 5);
+			const found = tuple.find((value) => value > 5);
+			expect(found).toBe(tuple.NotFound);
 		});
 	});
 
-	describe('findIndex', () => {
-		it('should return the index of the found value', () => {
-			const tuple = new MutableTuple(1, 2, 3);
-			const index = tuple.findIndex(2);
-
-			expect(index).toBe(1);
+	describe('findIndex()', () => {
+		it('should return the index of the first element that satisfies a function', () => {
+			const tuple = new MutableTuple(1, 2, 3, 4, 5);
+			const foundIndex = tuple.findIndex((value) => value > 3);
+			expect(foundIndex).toBe(3);
 		});
 
-		it('should return -1 if the value is not found', () => {
-			const tuple = new MutableTuple(1, 2, 3);
-			const index = tuple.findIndex(4);
+		it('should return -1 if no element satisfies the function', () => {
+			const tuple = new MutableTuple(1, 2, 3, 4, 5);
+			const foundIndex = tuple.findIndex((value) => value > 5);
+			expect(foundIndex).toBe(-1);
+		});
+	});
 
-			expect(index).toBe(-1);
+	describe('filter()', () => {
+		it('should return an array with the elements that satisfy a function', () => {
+			const tuple = new MutableTuple(1, 2, 3, 4, 5);
+			const filtered = tuple.filter((value) => value > 3);
+			expect(filtered).toEqual([4, 5]);
+		});
+
+		it('should return an empty array if no element satisfies the function', () => {
+			const tuple = new MutableTuple(1, 2, 3, 4, 5);
+			const filtered = tuple.filter((value) => value > 5);
+			expect(filtered).toEqual([]);
 		});
 	});
 });

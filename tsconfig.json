@@ -7,6 +7,6 @@
 		"strict": true,
 		"skipLibCheck": true
 	},
-	"include": ["src/**/*", "types"],
+	"include": ["src/**/*", "src/types/Range.ts"],
 	"exclude": ["node_modules/**/*", "**/*.spec.ts"]
 }

@@ -34,5 +34,11 @@
     "dist",
     "package.json",
     "README.md"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/preset-env": "^7.21.5",
+    "@babel/preset-typescript": "^7.21.5",
+    "@types/jest": "^29.5.1",
+    "babel-jest": "^29.5.0"
+  }
 }

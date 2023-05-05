@@ -21,7 +21,7 @@ export class MutableTuple<T extends any[]> {
 	}
 
 	public set<K extends TupleLength<T>>(index: K, value: T[K]) {
-		if (index >= this._length) {
+		if (index < 0 || index >= this._length) {
 			throw new Error(`Index out of bounds: ${index.toString()}`);
 		}
 
@@ -29,7 +29,7 @@ export class MutableTuple<T extends any[]> {
 	}
 
 	public get<K extends TupleLength<T>>(index: K) {
-		if (index >= this._length) {
+		if (index < 0 || index >= this._length) {
 			throw new Error(`Index out of bounds: ${index.toString()}`);
 		}
 
@@ -60,7 +60,7 @@ export class MutableTuple<T extends any[]> {
 	public findIndex(value: T[number]): TupleLength<T> | -1 {
 		for (let index in this._values) {
 			if (this._values[index] === value) {
-				return index as TupleLength<T>;
+				return parseInt(index) as TupleLength<T>;
 			}
 		}
 		return -1;

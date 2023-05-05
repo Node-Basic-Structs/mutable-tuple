@@ -3,48 +3,66 @@ import { Range } from './types/Range';
 type TupleLength<T extends any[]> = Range<0, T['length']> & number;
 
 export class MutableTuple<T extends any[]> {
-	private _values: T[];
-	private _maxSize: number;
+	private _values: T;
+	private _length: number;
+	public NotFound: symbol = Symbol('NotFound');
 
-	constructor(...args: T) {
-		this._maxSize = args.length;
-		this._values = args;
+	constructor(...values: T) {
+		this._length = values.length;
+		this._values = values;
 	}
 
 	public get values() {
 		return this._values;
 	}
 
+	public get length() {
+		return this._length;
+	}
+
 	public set<K extends TupleLength<T>>(index: K, value: T[K]) {
-		if (index in this._values) {
-			this._values[index as number] = value;
-		} else {
+		if (index >= this._length) {
 			throw new Error(`Index out of bounds: ${index.toString()}`);
 		}
+
+		this._values[index] = value;
 	}
 
 	public get<K extends TupleLength<T>>(index: K) {
-		if (index in this._values) {
-			console.log(typeof this._values[index as number]);
-			return this._values[index as number];
-		} else {
+		if (index >= this._length) {
 			throw new Error(`Index out of bounds: ${index.toString()}`);
 		}
+
+		return this._values[index];
 	}
 
-	public test<K extends number>(index: K) {
-		const numericIndex = index as unknown as number;
-		if (numericIndex >= 0 && numericIndex < this._values.length) {
-			console.log(numericIndex);
-		} else {
-			throw new Error(`Index out of bounds: ${numericIndex}`);
+	public concat<P extends any[]>(
+		mutableTuple: MutableTuple<P>
+	): MutableTuple<[...T, ...P]> {
+		return new MutableTuple(...this._values, ...mutableTuple.values);
+	}
+
+	public forEach(callbackfn: (value: T[number], index: number) => void) {
+		for (let i = 0; i < this.length; i++) {
+			callbackfn(this._values[i], i);
 		}
 	}
+
+	public find(value: T[number]): T[number] | symbol {
+		for (let item of this._values) {
+			if (item === value) {
+				return item;
+			}
+		}
+		return this.NotFound;
+	}
+
+	public findIndex(value: T[number]): TupleLength<T> | -1 {
+		for (let index in this._values) {
+			if (this._values[index] === value) {
+				return index as TupleLength<T>;
+			}
+		}
+		return -1;
+	}
 }
-
-const tuple = new MutableTuple<[number, string, number]>(1, 'string', 3);
-
-console.log(tuple.values);
-tuple.set(1, 'asdfads');
-console.log(tuple.get(1));
-console.log(tuple.values);

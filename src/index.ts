@@ -90,10 +90,10 @@ export class MutableTuple<T extends any[]> {
 	}
 
 	/**
-	 * Finds the first element in the tuple that satisfies the provided testing function.
+	 * Searches the mutable tuple for the first element that satisfies the specified callback function.
 	 *
-	 * @param value - The value to search for.
-	 * @returns The found value or NotFound if not found.
+	 * @param callbackfn - A function that accepts up to two arguments. The find() method calls the callback function for each element in the mutable tuple until the callback function returns a value which is true.
+	 * @returns The value of the first element in the mutable tuple that satisfies the specified callback function, or the NotFound symbol if no element satisfies the callback function.
 	 */
 	public find(
 		callbackfn: (value: T[number], index: number) => boolean
@@ -107,10 +107,10 @@ export class MutableTuple<T extends any[]> {
 	}
 
 	/**
-	 * Returns the index of the first element in the tuple that satisfies the provided testing function.
+	 * Searches the mutable tuple for the index of the first element that satisfies the specified callback function.
 	 *
-	 * @param value - The value to search for.
-	 * @returns The index of the found value or -1 if not found.
+	 * @param callbackfn - A function that accepts up to two arguments. The findIndex() method calls the callback function for each element in the mutable tuple until the callback function returns a value which is true.
+	 * @returns The index of the first element in the mutable tuple that satisfies the specified callback function, or -1 if no element satisfies the callback function.
 	 */
 	public findIndex(
 		callbackfn: (value: T[number], index: number) => boolean
@@ -123,6 +123,12 @@ export class MutableTuple<T extends any[]> {
 		return -1;
 	}
 
+	/**
+	 * Returns an array containing all elements in the mutable tuple that satisfy the specified callback function.
+	 *
+	 * @param callbackfn - A function that accepts up to two arguments. The filter() method calls the callback function for each element in the mutable tuple and constructs a new array containing all elements that satisfy the callback function.
+	 * @returns A new array containing all elements in the mutable tuple that satisfy the specified callback function.
+	 */
 	public filter(
 		callbackfn: (value: T[number], index: number) => boolean
 	): Array<T[number]> {

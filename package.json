@@ -1,44 +1,44 @@
 {
-  "name": "@basic-structs/mutable-tuple",
-  "version": "1.0.2",
-  "description": "A mutable tuple to Javascript and Typescript",
-  "main": "dist/index.js",
-  "type": "module",
-  "typings": "dist/index.d.ts",
-  "scripts": {
-    "run": "tsc && node dist/index.js",
-    "prebuild": "rm -rf ./dist",
-    "build": "rm -rf ./dist && tsc",
-    "test": "jest",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\" \"*.json\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Node-Basic-Structs/mutable-tuple.git"
-  },
-  "keywords": [
-    "Basic",
-    "Mutable",
-    "Tuple",
-    "Data",
-    "Struct",
-    "Structs"
-  ],
-  "author": "Brennon Gabriel de Oliveira",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Node-Basic-Structs/mutable-tuple/issues"
-  },
-  "homepage": "https://github.com/Node-Basic-Structs/mutable-tuple#readme",
-  "files": [
-    "dist",
-    "package.json",
-    "README.md"
-  ],
-  "devDependencies": {
-    "@babel/preset-env": "^7.21.5",
-    "@babel/preset-typescript": "^7.21.5",
-    "@types/jest": "^29.5.1",
-    "babel-jest": "^29.5.0"
-  }
+	"name": "@basic-structs/mutable-tuple",
+	"version": "2.0.0",
+	"description": "A mutable tuple to Javascript and Typescript",
+	"main": "dist/index.js",
+	"type": "module",
+	"typings": "dist/index.d.ts",
+	"scripts": {
+		"run": "tsc && node dist/index.js",
+		"prebuild": "rm -rf ./dist",
+		"build": "rm -rf ./dist && tsc",
+		"test": "jest",
+		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\" \"*.json\""
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Node-Basic-Structs/mutable-tuple.git"
+	},
+	"keywords": [
+		"Basic",
+		"Mutable",
+		"Tuple",
+		"Data",
+		"Struct",
+		"Structs"
+	],
+	"author": "Brennon Gabriel de Oliveira",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Node-Basic-Structs/mutable-tuple/issues"
+	},
+	"homepage": "https://github.com/Node-Basic-Structs/mutable-tuple#readme",
+	"files": [
+		"dist",
+		"package.json",
+		"README.md"
+	],
+	"devDependencies": {
+		"@babel/preset-env": "^7.21.5",
+		"@babel/preset-typescript": "^7.21.5",
+		"@types/jest": "^29.5.1",
+		"babel-jest": "^29.5.0"
+	}
 }

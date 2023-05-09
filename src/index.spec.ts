@@ -123,4 +123,82 @@ describe('MutableTuple', () => {
 			expect(filtered).toEqual([]);
 		});
 	});
+
+	describe('includes', () => {
+		it('should return true if value exists in tuple', () => {
+			const tuple = new MutableTuple(1, '2', true);
+			expect(tuple.includes(1)).toBeTruthy();
+			expect(tuple.includes('2')).toBeTruthy();
+			expect(tuple.includes(true)).toBeTruthy();
+		});
+
+		it('should return false if value does not exist in tuple', () => {
+			const tuple = new MutableTuple(1, '2', true);
+			expect(tuple.includes(0)).toBeFalsy();
+			expect(tuple.includes('1')).toBeFalsy();
+			expect(tuple.includes(false)).toBeFalsy();
+		});
+	});
+
+	describe('indexOf', () => {
+		it('should return the index of the first occurrence of value in tuple', () => {
+			const tuple = new MutableTuple(1, '2', true);
+			expect(tuple.indexOf(1)).toBe(0);
+			expect(tuple.indexOf('2')).toBe(1);
+			expect(tuple.indexOf(true)).toBe(2);
+		});
+
+		it('should return -1 if value does not exist in tuple', () => {
+			const tuple = new MutableTuple(1, '2', true);
+			expect(tuple.indexOf(0)).toBe(-1);
+			expect(tuple.indexOf('1')).toBe(-1);
+			expect(tuple.indexOf(false)).toBe(-1);
+		});
+	});
+
+	describe('lastIndexOf', () => {
+		it('should return the index of the last occurrence of value in tuple', () => {
+			const tuple = new MutableTuple(1, '2', true, '2');
+			expect(tuple.lastIndexOf(1)).toBe(0);
+			expect(tuple.lastIndexOf('2')).toBe(3);
+			expect(tuple.lastIndexOf(true)).toBe(2);
+		});
+
+		it('should return -1 if value does not exist in tuple', () => {
+			const tuple = new MutableTuple(1, '2', true);
+			expect(tuple.lastIndexOf(0)).toBe(-1);
+			expect(tuple.lastIndexOf('1')).toBe(-1);
+			expect(tuple.lastIndexOf(false)).toBe(-1);
+		});
+	});
+
+	describe('some', () => {
+		it('should return true if at least one value satisfies the condition', () => {
+			const tuple = new MutableTuple(1, '2', true);
+			expect(
+				tuple.some((value: string | number | boolean) => value === 1)
+			).toBeTruthy();
+			expect(tuple.some((value) => value === '2')).toBeTruthy();
+			expect(tuple.some((value) => value === true)).toBeTruthy();
+		});
+
+		it('should return false if no value satisfies the condition', () => {
+			const tuple = new MutableTuple(1, '2', true);
+			expect(tuple.some((value) => value === 0)).toBeFalsy();
+			expect(tuple.some((value) => value === '1')).toBeFalsy();
+			expect(tuple.some((value) => value === false)).toBeFalsy();
+		});
+	});
+
+	describe('every', () => {
+		it('should return true if all values satisfy the condition', () => {
+			const tuple = new MutableTuple(1, 1, 1);
+			expect(tuple.every((value) => value === 1)).toBeTruthy();
+		});
+
+		it('should return false if at least one value does not satisfy the condition', () => {
+			const tuple = new MutableTuple(1, 2, 3);
+			expect(tuple.every((value) => value === 1)).toBeFalsy();
+		});
+	});
 });

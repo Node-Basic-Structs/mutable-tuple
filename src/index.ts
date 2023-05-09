@@ -140,4 +140,121 @@ export class MutableTuple<T extends any[]> {
 		}
 		return values;
 	}
+
+	/**
+	 * Determines whether the mutable tuple includes a certain value among its entries, returning true or false as appropriate.
+	 * @param value - The value to search for.
+	 * @returns true if the value is found within the mutable tuple, otherwise false.
+	 * @throws {Error} If the index is out of bounds.
+	 * @example
+	 * const tuple = new MutableTuple(1, 2, 3);
+	 * tuple.includes(1); // true
+	 * tuple.includes(4); // false
+	 */
+	includes(value: T[number]): boolean {
+		for (let index in this._values) {
+			if (this._values[index] === value) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Determines the index of the first occurrence of a given value in the mutable tuple, or returns -1 if it is not present.
+	 * @param value - The value to search for.
+	 * @returns The index of the value in the mutable tuple, or -1 if not found.
+	 * @throws {Error} If the index is out of bounds.
+	 * @example
+	 * const tuple = new MutableTuple(1, 2, 3);
+	 * tuple.indexOf(1); // 0
+	 * tuple.indexOf(4); // -1
+	 */
+	indexOf(value: T[number]): TupleLength<T> | -1 {
+		for (let index in this._values) {
+			if (this._values[index] === value) {
+				return parseInt(index) as TupleLength<T>;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * Determines the index of the last occurrence of a given value in the mutable tuple, or returns -1 if it is not present.
+	 * @param value - The value to search for.
+	 * @returns The index of the last occurrence of the value in the mutable tuple, or -1 if not found.
+	 * @throws {Error} If the index is out of bounds.
+	 * @example
+	 * const tuple = new MutableTuple(1, 2, 3, 2);
+	 * tuple.lastIndexOf(2); // 3
+	 * tuple.lastIndexOf(4); // -1
+	 */
+	lastIndexOf(value: T[number]): TupleLength<T> | -1 {
+		for (let index = this._values.length - 1; index >= 0; index--) {
+			if (this._values[index] === value) {
+				return index as TupleLength<T>;
+			}
+		}
+		return -1;
+	}
+
+	/**
+	 * Determines whether at least one element in the mutable tuple satisfies the provided testing function.
+	 * @param callbackfn - A function that accepts up to three arguments. The some method calls the callbackfn function for each element in the mutable tuple until the callbackfn returns a value which is coercible to the Boolean value true, or until the end of the mutable tuple.
+	 * @returns true if the callbackfn function returns a value which is coercible to the Boolean value true for at least one element in the mutable tuple; otherwise, false.
+	 * @example
+	 * const tuple = new MutableTuple(1, 2, 3);
+	 * tuple.some((value) => value > 2); // true
+	 * tuple.some((value) => value > 3); // false
+	 */
+	some(callbackfn: (value: T[number], index: number) => boolean): boolean {
+		for (let index in this._values) {
+			if (callbackfn(this._values[index], parseInt(index))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Determines whether all the elements in the mutable tuple pass the test implemented by the provided function, returning a boolean value.
+	 * @param callbackfn - A function that accepts up to two arguments. The every method calls the callbackfn function for each element in the mutable tuple until the callbackfn returns a value which is coercible to the Boolean value false, or until the end of the mutable tuple.
+	 * @returns true if the callbackfn function returns a truthy value for every mutable tuple element; otherwise, false.
+	 * @example
+	 * const tuple = new MutableTuple(1, 2, 3);
+	 * tuple.every((item) => item > 0); // true
+	 * tuple.every((item) => item > 1); // false
+	 */
+	every(callbackfn: (value: T[number], index: number) => boolean): boolean {
+		for (let index in this._values) {
+			if (!callbackfn(this._values[index], parseInt(index))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * Applies a function against an accumulator and each element in the mutable tuple (from left to right) to reduce it to a single value.
+	 * @param callbackfn - A function that accepts up to three arguments. The reduce method calls the callbackfn function for each element in the mutable tuple.
+	 * @param initialValue - If initialValue is specified, it is used as the initial value to start the accumulation. The first call to the callbackfn function provides this value as an argument instead of an array value.
+	 * @returns The reduced value.
+	 * @example
+	 * const tuple = new MutableTuple(1, 2, 3);
+	 * tuple.reduce((prev, curr) => prev + curr); // 6
+	 */
+	reduce<K extends T[number]>(
+		callbackfn: (
+			previousValue: K,
+			currentValue: T[number],
+			currentIndex: number
+		) => K,
+		initialValue?: K
+	): K {
+		let previousValue = initialValue ?? this._values[0];
+		for (let index = 1; index < this._values.length; index++) {
+			previousValue = callbackfn(previousValue, this._values[index], index);
+		}
+		return previousValue;
+	}
 }

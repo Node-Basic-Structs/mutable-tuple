@@ -249,12 +249,28 @@ export class MutableTuple<T extends any[]> {
 			currentValue: T[number],
 			currentIndex: number
 		) => K,
-		initialValue?: K
+		initialValue?: K extends T[number] ? K : any
 	): K {
+		if (this._values.length === 0) {
+			throw new Error('Reduce of empty tuple with no initial value');
+		}
 		let previousValue = initialValue ?? this._values[0];
-		for (let index = 1; index < this._values.length; index++) {
+		for (
+			let index = initialValue ? 0 : 1;
+			index < this._values.length;
+			index++
+		) {
+			console.log(previousValue);
 			previousValue = callbackfn(previousValue, this._values[index], index);
 		}
 		return previousValue;
 	}
 }
+
+const tuple = new MutableTuple(1, 2, 3);
+
+const sum = tuple.reduce(
+	(previousValue, currentValue) => previousValue + currentValue
+);
+
+console.log(sum);

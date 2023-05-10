@@ -201,4 +201,38 @@ describe('MutableTuple', () => {
 			expect(tuple.every((value) => value === 1)).toBeFalsy();
 		});
 	});
+
+	describe('reduce', () => {
+		it('should reduce the tuple to a single value', () => {
+			const tuple = new MutableTuple(1, 2, 3);
+
+			const sum = tuple.reduce(
+				(previousValue, currentValue) => previousValue + currentValue
+			);
+
+			expect(sum).toBe(6);
+		});
+
+		it('should reduce the tuple to a single value with initial value', () => {
+			const tuple = new MutableTuple(1, 2, 3);
+
+			const sum = tuple.reduce(
+				(previousValue, currentValue) => previousValue + currentValue,
+				10 as number
+			);
+
+			expect(sum).toBe(16);
+		});
+
+		it('should throw an error if the tuple is empty and no initial value is provided', () => {
+			const tuple = new MutableTuple();
+
+			expect(() =>
+				tuple.reduce(
+					//@ts-ignore
+					(previousValue, currentValue) => previousValue + currentValue
+				)
+			).toThrow();
+		});
+	});
 });
